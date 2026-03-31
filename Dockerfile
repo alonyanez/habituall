@@ -1,12 +1,15 @@
-# Etapa 1: Construcción (Build)
-FROM maven:3.8.4-openjdk-17-slim AS build
+# Etapa 1: Construcción (Maven + Temurin 17)
+FROM maven:3.9.6-eclipse-temurin-17-alpine AS build
 COPY . /app
 WORKDIR /app
 RUN mvn clean package -DskipTests
 
-# Etapa 2: Ejecución (Run)
-FROM openjdk:17-jdk-slim
+# Etapa 2: Ejecución (JRE ligero para ahorrar RAM)
+FROM eclipse-temurin:17-jre-alpine
 COPY --from=build /app/target/*.jar app.jar
+
+# Configuración de memoria optimizada para los 512MB de Render
+ENV JAVA_OPTS="-Xmx300m -Xms200m -XX:+UseSerialGC"
 EXPOSE 8080
-# Limitamos la memoria para que quepa en el plan gratuito de Render
-ENTRYPOINT ["java", "-Xmx380m", "-Xss256k", "-jar", "/app.jar"]
+
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app.jar"]
