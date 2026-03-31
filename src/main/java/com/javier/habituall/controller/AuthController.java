@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "https://alonyanez.github.io") // La URL de tu frontend
 public class AuthController {
     
     @Autowired
