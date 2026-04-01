@@ -57,7 +57,7 @@ public class AuthController {
 
     @GetMapping("/health")
     public ResponseEntity<String> healthCheck() {
-        return ResponseEntity.ok("Servidor despierto");
+        return ResponseEntity.ok().build();
     }
   
 }
