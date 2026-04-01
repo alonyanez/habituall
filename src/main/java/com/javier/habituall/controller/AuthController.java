@@ -55,11 +55,9 @@ public class AuthController {
             return ResponseEntity.ok(new AuthResponse(token));
     }
 
-    @RestController
-    public class HealthController {
-        @GetMapping("/health")
-        public ResponseEntity<String> healthCheck() {
-            return ResponseEntity.ok("Servidor despierto");
-        }
+    @GetMapping("/health")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("Servidor despierto");
     }
+  
 }
