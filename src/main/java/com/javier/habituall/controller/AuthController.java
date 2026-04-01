@@ -54,4 +54,12 @@ public class AuthController {
             String token = jwtUtil.generateToken(loginRequest.getEmail());
             return ResponseEntity.ok(new AuthResponse(token));
     }
+
+    @RestController
+    public class HealthController {
+        @GetMapping("/health")
+        public ResponseEntity<String> healthCheck() {
+            return ResponseEntity.ok("Servidor despierto");
+        }
+    }
 }
